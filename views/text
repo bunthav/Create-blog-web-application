@@ -1,0 +1,22 @@
+<p>Today is day type: <%= dayType %>
+    </p>
+
+    <h2>Here's a joke list:</h2>
+    <ul>
+        <% jokesList.forEach((joke)=> { %>
+            <li><strong>
+                    <%= joke.jokeType %>:
+                </strong>
+                <%= joke.jokeText %>
+            </li>
+            <% }); %>
+    </ul>
+
+    <h2>Other Random Messages:</h2>
+    <ul>
+        <% joke.forEach((message)=> { %>
+            <li>
+                <%= message %>
+            </li>
+            <% }); %>
+    </ul>

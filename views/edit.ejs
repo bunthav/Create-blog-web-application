@@ -1,0 +1,78 @@
+<%- include('./Partials/header.ejs') %>
+
+    <body class="bg-light">
+        <div class="container mt-5">
+            <h1 class="text-center text-primary mb-4">Welcome!</h1>
+            <h2 class="text-center mb-4">Blog of Today</h2>
+
+            <!-- Edit Blog Form -->
+            <div class="card p-4 mb-4 shadow-sm">
+                <form action="/editBlog" method="post" class="row g-3">
+                    <input type="hidden" name="id" value="<%= id %>">
+
+                    <div class="col-md-6">
+                        <label for="title" class="form-label">Title</label>
+                        <input type="text" id="title" name="title" class="form-control" value="<%= title || '' %>"
+                            required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="description" class="form-label">Description</label>
+                        <input type="text" id="description" name="description" class="form-control"
+                            value="<%= description || '' %>" required>
+                    </div>
+
+                    <div class="col-12 text-center">
+                        <button type="submit" class="btn btn-primary">Edit</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Blogs List -->
+            <div class="row">
+                <% if (theblogs && theblogs.length> 0) { %>
+                    <% theblogs.forEach((blog)=> { %>
+                        <div class="col-md-6 mb-4">
+                            <div class="card shadow-sm">
+                                <div class="card-body">
+                                    <h3 class="card-title text-primary">
+                                        <%= blog.title %>
+                                    </h3>
+                                    <p class="card-text"><strong>ID:</strong>
+                                        <%= blog.id %>
+                                    </p>
+                                    <p class="card-text">
+                                        <%= blog.description.slice(0, 250) %>
+                                    </p>
+
+                                    <div class="d-flex justify-content-between">
+                                        <!-- read More -->
+                                        <form action="/readmore" method="post" class="me-2">
+                                            <input type="hidden" name="id" value="<%= blog.id %>">
+                                            <button type="submit" class="btn btn-primary">readmore</button>
+                                        </form>
+
+                                        <!-- Edit Form -->
+                                        <form action="/edit" method="post" class="me-2">
+                                            <input type="hidden" name="id" value="<%= blog.id %>">
+                                            <button type="submit" class="btn btn-warning">Edit</button>
+                                        </form>
+
+                                        <!-- Delete Form -->
+                                        <form action="/delete" method="post">
+                                            <input type="hidden" name="id" value="<%= blog.id %>">
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <p class="text-center text-muted">No blogs available. Add or edit one above!</p>
+                <% } %>
+            </div>
+        </div>
+    </body>
+
+</html>
